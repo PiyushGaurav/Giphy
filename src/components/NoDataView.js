@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, Image, ActivityIndicator, StyleSheet} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import Colors from '../utils/Colors';
+import Strings from '../utils/Strings';
 
 const NoDataView = ({term}) => {
   const {loading, error} = useSelector(state => state.gifs);
@@ -13,8 +15,8 @@ const NoDataView = ({term}) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <ActivityIndicator size="large" color="black" />
-        <Text style={styles.textStyle}>Searching for GIF...</Text>
+        <ActivityIndicator size="large" color={Colors.primary} />
+        <Text style={styles.textStyle}>{Strings.searching}</Text>
       </View>
     );
   };
@@ -48,6 +50,8 @@ const styles = StyleSheet.create({
     height: 100,
   },
   textStyle: {
-    fontSize: 30,
+    fontSize: 20,
+    color: Colors.primary,
+    fontWeight: '800',
   },
 });

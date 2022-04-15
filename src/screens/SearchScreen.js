@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, StatusBar} from 'react-native';
 import {useDispatch} from 'react-redux';
 import giphyServer from '../api/giphyServer';
 import {
@@ -10,6 +10,7 @@ import {
 import NoDataView from '../components/NoDataView';
 import GIFList from '../components/GIFList';
 import HeaderWithSearch from '../components/HeaderWithSearch';
+import Colors from '../utils/Colors';
 
 const SearchScreen = () => {
   const [term, updateTerm] = useState('');
@@ -21,9 +22,8 @@ const SearchScreen = () => {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      console.log('debounce');
       searchGIFs();
-    }, 500);
+    }, 100);
     return () => {
       clearTimeout(debounce);
     };
@@ -40,7 +40,6 @@ const SearchScreen = () => {
           offset: 0,
         },
       });
-      console.log('searchGIFs : ', res.data.data);
       setSearchedData(res.data.data);
       dispatch(fetchGIFSuccess([]));
     } catch (error) {
@@ -50,7 +49,6 @@ const SearchScreen = () => {
 
   const loadMoreGIFs = async (page = 0) => {
     dispatch(fetchGIFRequest());
-    console.log('page : ', page);
     try {
       const res = await giphyServer.get('/search', {
         params: {
@@ -59,7 +57,6 @@ const SearchScreen = () => {
           offset: page * limit,
         },
       });
-      console.log('loadMoreGIFs : ', [...searchedData, ...res.data.data]);
       setSearchedData([...searchedData, ...res.data.data]);
       dispatch(fetchGIFSuccess([]));
     } catch (error) {
@@ -85,6 +82,11 @@ const SearchScreen = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar
+        animated={true}
+        backgroundColor={Colors.primary}
+        barStyle="dark-content"
+      />
       <HeaderWithSearch
         onChangeText={onChangeText}
         term={term}
@@ -108,6 +110,6 @@ export default SearchScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#feffb3',
+    backgroundColor: Colors.secondary,
   },
 });

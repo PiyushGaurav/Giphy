@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {useSelector} from 'react-redux';
+import Colors from '../utils/Colors';
 import ProgressiveImage from './ProgressiveImage';
 
 const {width} = Dimensions.get('window');
@@ -15,9 +16,9 @@ const renderGif = item => {
   return (
     <ProgressiveImage
       thumbnailSource={{
-        uri: item.images.fixed_height_small_still.url,
+        uri: item.images.fixed_height_still.url,
       }}
-      source={{uri: item.images.fixed_height_small.url}}
+      source={{uri: item.images.fixed_height.url}}
       style={{
         width: '100%',
         height: 200,
@@ -32,12 +33,12 @@ const renderGifList = ({searchedData, handleLoadMore, handleRefresh}) => {
   const renderSpinner = () => {
     return (
       <View style={styles.footerSpinnerContainer}>
-        <ActivityIndicator size="large" color="black" />
+        <ActivityIndicator size="large" color={Colors.primary} />
       </View>
     );
   };
   return (
-    <View style={{width, marginVertical: 20, paddingBottom: 40}}>
+    <View style={{width, marginTop: 60}}>
       <FlatList
         data={searchedData}
         keyExtractor={item => item.id + `${Math.random(9999)}`}

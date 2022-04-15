@@ -8,8 +8,12 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  Keyboard,
   Image,
+  Platform,
 } from 'react-native';
+import Colors from '../utils/Colors';
+import Strings from '../utils/Strings';
 
 const {width} = Dimensions.get('window');
 
@@ -19,15 +23,20 @@ const HeaderWithSearch = ({onChangeText, term, searchGIFs}) => {
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.textInputStyle}
-          placeholderTextColor="white"
+          placeholderTextColor={Colors.lightGrey}
           autoCapitalize={'none'}
           autoCorrect={false}
           onChangeText={onChangeText}
           value={term}
-          placeholder="Search for GIF"
+          maxLength={25}
+          placeholder={Strings.searchPlaceholder}
         />
         <TouchableOpacity
-          onPress={() => searchGIFs()}
+          activeOpacity={1}
+          onPress={() => {
+            Keyboard.dismiss();
+            searchGIFs();
+          }}
           style={styles.searchIconContainer}>
           <Image
             style={styles.searchIcon}
@@ -39,23 +48,16 @@ const HeaderWithSearch = ({onChangeText, term, searchGIFs}) => {
   };
 
   const renderTitle = () => {
-    return (
-      <Text
-        style={{
-          marginLeft: 30,
-          fontSize: 60,
-          fontWeight: '800',
-        }}>
-        Giffy
-      </Text>
-    );
+    return <Text style={styles.titleStyle}>{Strings.appTitle}</Text>;
   };
   return (
     <View
       style={{
-        height: 150 + DeviceHelper.getStatusBarHeight(),
+        height:
+          (Platform.OS == 'ios' ? 110 : 120) +
+          DeviceHelper.getStatusBarHeight(),
         paddingTop: DeviceHelper.getStatusBarHeight(),
-        backgroundColor: 'yellow',
+        backgroundColor: Colors.primary,
         ...shadow,
       }}>
       {renderTitle()}
@@ -67,24 +69,29 @@ const HeaderWithSearch = ({onChangeText, term, searchGIFs}) => {
 export default HeaderWithSearch;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#feffb3',
-  },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     height: 80,
   },
+  titleStyle: {
+    marginLeft: 30,
+    fontSize: 60,
+    fontWeight: '800',
+    color: Colors.secondary,
+  },
   textInputStyle: {
     flex: 1,
+    width: '40%',
     marginLeft: 10,
-    backgroundColor: 'red',
+    marginRight: 10,
+    backgroundColor: Colors.pink,
     height: 60,
     borderRadius: 30,
-    padding: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
     fontSize: 20,
-    fontWeight: '400',
+    fontWeight: '500',
     color: 'white',
     ...shadow,
   },
@@ -94,8 +101,8 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 50,
-    borderColor: 'yellow',
-    backgroundColor: 'red',
+    borderColor: Colors.primary,
+    backgroundColor: Colors.pink,
     borderWidth: 10,
     justifyContent: 'center',
     alignItems: 'center',
