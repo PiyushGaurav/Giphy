@@ -23,7 +23,7 @@ const SearchScreen = () => {
   useEffect(() => {
     const debounce = setTimeout(() => {
       searchGIFs();
-    }, 100);
+    }, 500);
     return () => {
       clearTimeout(debounce);
     };

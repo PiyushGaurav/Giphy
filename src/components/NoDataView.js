@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, ActivityIndicator, StyleSheet} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Colors from '../utils/Colors';
 import Strings from '../utils/Strings';
 

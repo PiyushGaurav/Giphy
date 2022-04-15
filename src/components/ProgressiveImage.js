@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Animated, ImageBackground} from 'react-native';
+import {StyleSheet, Animated, ImageBackground} from 'react-native';
 
 export const ProgressiveImage = ({thumbnailSource, source, style}) => {
   const [imageAnimated] = useState(new Animated.Value(0));

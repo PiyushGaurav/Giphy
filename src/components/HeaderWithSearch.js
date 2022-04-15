@@ -1,6 +1,6 @@
 import React from 'react';
 import DeviceHelper from '../utils/DeviceHelper';
-import shadow from '../utils/shadow';
+import shadow from '../utils/Shadow';
 import {
   View,
   TextInput,
